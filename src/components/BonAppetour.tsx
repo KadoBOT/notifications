@@ -12,6 +12,9 @@ import Update from 'material-ui/lib/svg-icons/action/update';
 import Payment from 'material-ui/lib/svg-icons/action/payment';
 import Info from 'material-ui/lib/svg-icons/action/info';
 import Divider from 'material-ui/lib/divider';
+import Avatar from 'material-ui/lib/avatar';
+import List from 'material-ui/lib/lists/list';
+import ListItem from 'material-ui/lib/lists/list-item';
 
 interface IAppProps {
 }
@@ -19,7 +22,7 @@ interface IAppProps {
 interface IAppState {
   notifications? : number;
   open? : boolean;
-  messages? : Array<{type?: string, text?: string}>;
+  messages? : Array<{type?: string, text?: string, read?: boolean}>;
   received? : boolean;
 }
 
@@ -38,14 +41,15 @@ class BonAppetour extends React.Component<IAppProps, IAppState>{
 
   public handleClose = () => {
     this.setState({open: false, notifications: 0});
+    this.state.messages.map( message => message.read = true)
   };
 
   public addNotification = () => {
     let m = this.state.messages;
     let type = ['message', 'booking', 'inquiry', 'status', 'system']
-    let random = Math.round(Math.random() * 5);
-    let messageArray = {type: type[random], text: 'Lorem Ipsum Dolor Sit Amet'}
-    let messageState = m.push(messageArray);
+    let random = Math.round(Math.random() * 4);
+    let messageArray = {type: type[random], text: 'Lorem Ipsum Dolor Sit Amet', read: false}
+    let messageState = m.unshift(messageArray);
     this.setState({notifications: this.state.notifications + 1, received: true, messages: m});
   };
 
@@ -79,21 +83,28 @@ class BonAppetour extends React.Component<IAppProps, IAppState>{
         </div>
         <div>
           <Dialog
-            title={`${this.state.notifications} new notifications`}
+            title="Notifications"
             modal={false}
             open={this.state.open}
             onRequestClose={this.handleClose}
+            autoScrollBodyContent={true}
           >
-            {this.state.notifications === 0
-            ? <span>No new notifications</span>
-            : this.state.messages.map((message, i) => {
-                if(message.type === 'message') return <div key={i}> <Message /><h3>New Message</h3><h5>{message.text}</h5><Divider /></div>
-                if(message.type === 'booking') return <div key={i}> <DateRange /><h3>New Booking</h3><h5>{message.text}</h5><Divider /></div>
-                if(message.type === 'inquiry') return <div key={i}> <Payment /><h3>New Inquiry</h3><h5>{message.text}</h5><Divider /></div>
-                if(message.type === 'status')  return <div key={i}><Update /><h3>New Status</h3><h5>{message.text}</h5><Divider /></div>
-                if(message.type === 'system')  return <div key={i}><Info /><h3>New Message from BonAppetour</h3><h5>{message.text}</h5><Divider /></div>
-              })
-            }
+            <List subheader={`${this.state.notifications} unread notifications`}>
+              {this.state.messages.length === 0
+              ? <ListItem>No new notifications</ListItem>
+              : this.state.messages.map((message, i) => {
+                  let isRead;
+                  if(!message.read){
+                    isRead = {backgroundColor: 'rgba(119, 119, 119, 0.15)', borderBottom:' 1px solid #BDBDBD'};
+                  }
+                  if(message.type === 'message') return <ListItem primaryText="Message" style={isRead} secondaryText={message.text} key={i} leftAvatar={<Avatar icon={<Message />} />}></ListItem>
+                  if(message.type === 'booking') return <ListItem primaryText="Booking" style={isRead} secondaryText={message.text} key={i} leftAvatar={<Avatar icon={<DateRange/>} />}></ListItem>
+                  if(message.type === 'inquiry') return <ListItem primaryText="Inquiry" style={isRead} secondaryText={message.text} key={i} leftAvatar={<Avatar icon={<Payment />} />}></ListItem>
+                  if(message.type === 'status')  return <ListItem primaryText="Status" style={isRead} secondaryText={message.text} key={i} leftAvatar={<Avatar icon={<Update />} />}></ListItem>
+                  if(message.type === 'system')  return <ListItem primaryText="Global Message" style={isRead} secondaryText={message.text} key={i} leftAvatar={<Avatar icon={<Info />} />}></ListItem>
+                })
+              }
+            </List>
           </Dialog>
           <Snackbar
             open={this.state.received}
