@@ -1,9 +1,12 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import * as injectTapEventPlugin from 'react-tap-event-plugin';
 
-import Hello from "./components/Hello";
+import BonAppetour from "./components/BonAppetour";
+
+injectTapEventPlugin();
 
 ReactDOM.render(
-    <Hello compiler="TypeScriptX" framework="React" />,
+    <BonAppetour />,
     document.querySelector(".container")
 );

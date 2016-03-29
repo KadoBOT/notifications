@@ -12,6 +12,8 @@
   },
   "exclude": [
     "node_modules",
-    "static"
-  ]
+    "static",
+    "typings/browser"
+  ],
+  "compileOnSave": false
 }
