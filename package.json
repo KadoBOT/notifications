@@ -1,0 +1,39 @@
+{
+  "name": "bonappetour-notifications",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KadoBOT/notifications"
+  },
+  "keywords": [
+    "react",
+    "reactjs",
+    "boilerplate",
+    "typescript",
+    "webpack",
+    "material-ui"
+  ],
+  "author": "Ricardo Ambrogi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/KadoBOT/notifications/issues"
+  },
+  "homepage": "http://kadobot.github.com/notifications",
+  "devDependencies": {
+    "react-hot-loader": "^1.3.0",
+    "ts-loader": "^0.8.1",
+    "typescript": "^1.8.2",
+    "webpack": "^1.9.6",
+    "webpack-dev-server": "^1.8.2"
+  },
+  "dependencies": {
+    "material-ui": "^0.15.0-alpha.2",
+    "react": "^0.14.0",
+    "react-dom": "^0.14.0",
+    "react-tap-event-plugin": "^0.2.2"
+  }
+}
