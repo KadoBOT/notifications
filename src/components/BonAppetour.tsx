@@ -84,16 +84,16 @@ class BonAppetour extends React.Component<IAppProps, IAppState>{
         <AppBar
         title="BonAppetour"
         iconElementRight={
-/*if no new notifications, we don't show the badge with the number of notifications.*/
+//if no new notifications, we don't show the badge with the number of notifications.
           this.state.notifications === 0
           ? <IconButton tooltip="Notifications" onTouchTap={this.handleOpen}><NotificationsIcon/></IconButton>
+//the badgeContent shows the number of unread notifications
           : <Badge
-/*the badgeContent shows the number of unread notifications*/
           badgeContent={this.state.notifications}
           badgeStyle={{top: 20, right: 20}}
           style={{padding: '24px 24px 0px 12px', marginTop: '-16px'}}
           >
-/*onTouchTap fires our handleOpen function, to show dialog.*/
+{/*onTouchTap fires our handleOpen function, to show dialog.*/}
             <IconButton tooltip="Notifications" onTouchTap={this.handleOpen}>
               <NotificationsIcon/>
             </IconButton>
